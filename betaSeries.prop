@@ -1,0 +1,8 @@
+{
+  "modules" : {
+    "betaSeries"  : {
+      "description": "Plugin interrogeant l'API de BetaSeries",
+      "version": "1.0"
+    }
+  }
+}
