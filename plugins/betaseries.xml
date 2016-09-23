@@ -1,0 +1,11 @@
+<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="rule_betaseries" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+   <rule id="rule_betaseries" scope="public">
+      <example>Sarah, parle-moi de toi</example>
+      <tag>out.action=new Object();</tag>
+
+      <item>SARAH</item>
+      <item>Quels sont les episodes de la semaine<tag>out.action.commande='getSerie';</tag></item>
+
+     <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/betaseries";</tag>
+   </rule>
+</grammar>

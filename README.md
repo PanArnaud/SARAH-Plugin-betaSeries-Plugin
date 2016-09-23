@@ -1,4 +1,4 @@
-betaSeries-Plugin
+betaseries
 ==========
 
 This plugin is an add-on for the framework [S.A.R.A.H.](http://encausse.net/s-a-r-a-h), an Home Automation project built
@@ -7,7 +7,7 @@ on top of:
 * NodeJS (ExpressJS) server for Internet of Things communication
 
 ## Introduction
-betaSeries-Plugin permet de se tenir informé rapidement des épisodes à venir des séries que vous suivez.
+betaseries permet de se tenir informé rapidement des épisodes à venir des séries que vous suivez.
 
 ## Table des matières
 - [Compatibilité](#compatibilité)
@@ -19,7 +19,7 @@ betaSeries-Plugin permet de se tenir informé rapidement des épisodes à venir 
 - [Idées et Améliorations](#idees)
 
 ## Compatibilité
-- betaSeries-Plugin est compatible Sarah V3.
+- betaSeries est compatible Sarah V3.
 
 ## Installation
 - Assurez vous d'être inscrit sur [BetaSeries](http://www.betaseries.com/).
