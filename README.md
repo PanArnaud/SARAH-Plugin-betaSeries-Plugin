@@ -16,6 +16,7 @@ betaSeries-Plugin permet de se tenir informé rapidement des épisodes à venir 
 - [Customiser](#customiser)
 - [Problèmes](#problemes)
 - [Remarques](#remarques)
+- [Idées et Améliorations](#idees)
 
 ## Compatibilité
 - betaSeries-Plugin est compatible Sarah V3.
@@ -38,3 +39,6 @@ betaSeries-Plugin permet de se tenir informé rapidement des épisodes à venir 
 
 ## Remarques
 - Ce plugin est le tout premier que je code, il n'est sûrement pas optimisé, tout remarque est la bienvenue !  
+
+## Idées et Améliorations
+- Ajouter une page index.html permettant documentation, mais aussi l'ajout de série (Les récupérer via l'API, et les envoyer ensuite à betaSeries).
