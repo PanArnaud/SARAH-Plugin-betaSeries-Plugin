@@ -56,17 +56,69 @@ exports.action = function(data, callback, config, SARAH) {
                     episode: allNextSeries.episodes[i].episode,
                 });
               }
-            }
-
-            for (var i = 0; i < Object.keys(series).length; i++) {
-              if(moment(series[i].date).isSame(moment(), 'day')) {
-                SARAH.speak(series[i].title + ", saison "+ series[i].season + ", episode " + series[i].episode + ", disponible aujourd'hui");
-              } else {
-                SARAH.speak(series[i].title + ", saison "+ series[i].season + ", episode " + series[i].episode + ", en ligne le "+ moment(series[i].date).format("dddd D MMMM "));
+              if(!--pending){
+                for_today(series, function(result){
+                  if (result)
+                    SARAH.speak ("disponible aujourd'hui", function(){
+                      speak_series (SARAH, true, series, 0, speak_series);
+                    });
+                  else
+                    for_nextdays(series,function (result){
+                      if (result)
+                        SARAH.speak ("pour les prochains jours", function(){
+                          speak_series (SARAH, false, series, 0, speak_series);
+                        })
+                    });
+                });
               }
             }
           });
       }
   });
  callback({});
+}
+
+var speak_series = function (SARAH, today, series, i , callback ) {
+  if (i == series.length) {
+    for_today (series, function(result){
+      if (today) {
+        SARAH.speak ("pour les prochains jours", function() {
+          callback (SARAH, false, series, 0 , callback);
+        });
+      }
+    });
+    return;
+  }
+
+  var tts;
+  if(today && moment(series[i].date).isSame(moment(), 'day')){
+    tts = series[i].title + ", saison "+ series[i].season + ", episode " + series[i].episode;
+  }else{
+    tts = series[i].title + ", saison "+ series[i].season + ", episode " + series[i].episode + ", en ligne le "+ moment(series[i].date).format("dddd D MMMM ");
+  }
+
+  SARAH.speak(tts, function () {
+  // 1500 de timeout pour laisser sarah s'exprimer, à réduire ou a augmenter...
+    setTimeout(function(){
+      callback (SARAH, today, series, ++i , callback);
+    }, 1500);
+  });
+}
+
+var for_today = function (series, callback) {
+  var found = false;
+  for (var i = 0; i < series.length; i++) {
+    if(moment(series[i].date).isSame(moment(), 'day'))
+      found = true;
+  }
+  callback(found);
+}
+
+var for_nextdays = function (series,callback) {
+  var found = false;
+  for (var i = 0; i < series.length; i++) {
+    if(moment(series[i].date).isBetween(moment(), moment().add(7, 'days'), 'day', '[]'))
+      found = true;
+  }
+  callback(found);
 }
