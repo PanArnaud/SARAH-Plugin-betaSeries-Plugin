@@ -2,7 +2,7 @@
   "modules" : {
     "betaseries"  : {
       "description": "Plugin interrogeant l'API de BetaSeries",
-      "version": "1.0"
+      "version": "1.1"
     }
   }
 }
