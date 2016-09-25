@@ -19,20 +19,20 @@ betaseries permet de se tenir informé rapidement des épisodes à venir des sé
 - [Idées et Améliorations](#améliorations)
 
 ## Compatibilité
-- betaSeries est compatible Sarah V3.
+- betaseries est compatible Sarah V3.
 
 ## Installation
 - Assurez vous d'être inscrit sur [BetaSeries](http://www.betaseries.com/).
 - Ajouter des séries que vous souhaitez suivre.
 - Rendez-vous ensuite sur [ce lien](http://www.betaseries.com/api/) afin de récupérer une clé API.
-- Dans betaSeries.js, collez votre clé à l'emplacement indiqué, ainsi que votre identifiant et votre mot de passe.
+- Dans betaseries.js, collez votre clé à l'emplacement indiqué, ainsi que votre identifiant et votre mot de passe.
 - Testez.
 
 ## Utilisation
 - Demandez simplement : "Quels sont les episodes de la semaine". Après un cours moment, SARAH vous listera les épisodes à venir.
 
 ## Customiser
-- Vous pouvez changer la date limite des épisode que SARAH récupère. Par défaut elle est fixée à AUJOURD'HUI + 7, soit une semaine. A la ligne de 57 du fichier betaSeries.js vous pouvez modifier cette valeur par le nombre de jours que vous souhaiter (Adapter la phrase dans le .xml :D ).
+- Vous pouvez changer la date limite des épisode que SARAH récupère. Par défaut elle est fixée à AUJOURD'HUI + 7, soit une semaine. A la ligne de 50 du fichier betaseries.js vous pouvez modifier cette valeur par le nombre de jours que vous souhaiter (Adapter la phrase dans le .xml :D ).
 
 ## Problèmes
 - SARAH n'énumère pas les épisodes dans l'ordre des dates.
@@ -41,4 +41,4 @@ betaseries permet de se tenir informé rapidement des épisodes à venir des sé
 - Ce plugin est le tout premier que je code, il n'est sûrement pas optimisé, tout remarque est la bienvenue !  
 
 ## Améliorations
-- Ajouter une page index.html permettant documentation, mais aussi l'ajout de série (Les récupérer via l'API, et les envoyer ensuite à betaSeries).
+- Ajouter une page index.html permettant documentation, mais aussi l'ajout de série (Les récupérer via l'API, et les envoyer ensuite à betaSeries afin de les intégrer au planning).
