@@ -44,7 +44,7 @@ exports.action = function(data, callback, config, SARAH) {
             allNextSeries = JSON.parse(allNextSeries);
 
             series = [];
-            var now = moment();
+            var pending = Object.keys(allNextSeries.episodes).length;
 
             for (var i = 0; i < Object.keys(allNextSeries.episodes).length; i++) {
               if(moment(allNextSeries.episodes[i].date).isBetween(moment(), moment().add(7, 'days'), 'day', '[]')){
@@ -58,17 +58,22 @@ exports.action = function(data, callback, config, SARAH) {
               }
               if(!--pending){
                 for_today(series, function(result){
-                  if (result)
+                  if (result){
                     SARAH.speak ("disponible aujourd'hui", function(){
                       speak_series (SARAH, true, series, 0, speak_series);
                     });
-                  else
-                    for_nextdays(series,function (result){
-                      if (result)
-                        SARAH.speak ("pour les prochains jours", function(){
-                          speak_series (SARAH, false, series, 0, speak_series);
-                        })
+                  }else{
+                    SARAH.speak ("il n'y a pas de séries pour aujourd'hui", function() {
+                      for_nextdays(series,function (result){
+                        if (result)
+                          SARAH.speak ("pour les prochains jours", function(){
+                            speak_series (SARAH, false, series, 0, speak_series);
+                          });
+                        else
+                          SARAH.speak ("il n'y a pas de séries pour les prochains jours");
+                      });
                     });
+                  }
                 });
               }
             }
@@ -80,25 +85,31 @@ exports.action = function(data, callback, config, SARAH) {
 
 var speak_series = function (SARAH, today, series, i , callback ) {
   if (i == series.length) {
-    for_today (series, function(result){
-      if (today) {
-        SARAH.speak ("pour les prochains jours", function() {
-          callback (SARAH, false, series, 0 , callback);
-        });
-      }
-    });
+    if (today) {
+      for_nextdays(series, function(result){
+        if(result)
+          SARAH.speak ("pour les prochains jours", function() {
+            setTimeout(function(){
+              callback (SARAH, false, series, 0 , callback);
+            }, 1000);
+          });
+        else
+          SARAH.speak ("il n'y a pas de séries pour les prochains jours");
+      });
+    }
     return;
   }
 
   var tts;
   if(today && moment(series[i].date).isSame(moment(), 'day')){
     tts = series[i].title + ", saison "+ series[i].season + ", episode " + series[i].episode;
-  }else{
+  }else if (!today && moment(series[i].date).isBetween(moment(), moment().add(7, 'days'), 'day', '(]')){
     tts = series[i].title + ", saison "+ series[i].season + ", episode " + series[i].episode + ", en ligne le "+ moment(series[i].date).format("dddd D MMMM ");
+  }else{
+    return callback (SARAH, today, series, ++i , callback);
   }
 
   SARAH.speak(tts, function () {
-  // 1500 de timeout pour laisser sarah s'exprimer, à réduire ou a augmenter...
     setTimeout(function(){
       callback (SARAH, today, series, ++i , callback);
     }, 1500);
